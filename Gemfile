@@ -8,7 +8,16 @@ redmine_version_major = version_file.match(/MAJOR =/).post_match.match(/\d/)[0].
 
 gem "holidays", "~>1.0.3"
 gem "icalendar"
-gem "nokogiri"
+
+# only care about 2.6+
+if redmine_version_major == 2 || redmine_version_minor == 1
+  gem "nokogiri", ">= 1.6.7.2"
+elsif redmine_version_major == 3 || redmine_version_minor == 0
+  gem "nokogiri", (RUBY_VERSION >= "2.1" ? "~> 1.7.2" : "~> 1.6.8")
+else
+  gem "nokogiri"
+end
+
 gem "open-uri-cached"
 gem "prawn"
 gem 'json'
@@ -25,7 +34,7 @@ group :test do
   gem 'cucumber-rails', require: false
   gem "culerity"
   gem "cucumber"
-  gem "capybara", "~> 1"
+  gem "capybara"
   #gem "faye-websocket"
   gem "poltergeist"
   gem "database_cleaner"
