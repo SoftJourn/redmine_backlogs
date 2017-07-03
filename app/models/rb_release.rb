@@ -159,8 +159,6 @@ class RbRelease < ActiveRecord::Base
   RELEASE_STATUSES = %w(open closed)
   RELEASE_SHARINGS = %w(none descendants hierarchy tree system)
 
-  unloadable
-
   belongs_to :project, :inverse_of => :releases
   has_many :issues, :class_name => 'RbStory', :foreign_key => 'release_id', :dependent => :nullify
   has_many :rb_release_burnchart_day_cache, :dependent => :delete_all, :foreign_key => 'release_id'

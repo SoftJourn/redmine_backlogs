@@ -1,6 +1,4 @@
 class RbWikisController < RbApplicationController
-  unloadable
-
   # NOTE: This method is public (see init.rb). We will let Redmine core's
   # WikiController#index tak care of autorization
   # NOTE: this redirection causes a page to be created from a template

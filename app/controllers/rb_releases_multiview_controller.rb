@@ -3,8 +3,6 @@ include RbFormHelper
 include ProjectsHelper
 
 class RbReleasesMultiviewController < RbApplicationController
-  unloadable
-
   def index
   end
 

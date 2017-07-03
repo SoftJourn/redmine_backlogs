@@ -1,8 +1,6 @@
 require 'icalendar'
 
 class RbCalendarsController < RbApplicationController
-  unloadable
-
   case Backlogs.platform
     when :redmine
       before_filter :require_admin_or_api_request, :only => :ical

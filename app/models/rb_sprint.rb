@@ -1,8 +1,6 @@
 require 'date'
 
 class RbSprint < Version
-  unloadable
-
   validate :start_and_end_dates
 
   def start_and_end_dates

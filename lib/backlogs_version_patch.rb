@@ -7,8 +7,6 @@ module Backlogs
       base.send(:include, InstanceMethods)
 
       base.class_eval do
-        unloadable
-
         has_one :sprint_burndown, :class_name => RbSprintBurndown, :dependent => :destroy
 
         after_save :clear_burndown

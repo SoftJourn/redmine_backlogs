@@ -1,8 +1,6 @@
 include RbCommonHelper
 
 class RbTaskboardsController < RbApplicationController
-  unloadable
-
   def show
     stories = @sprint.stories
     @story_ids    = stories.map{|s| s.id}

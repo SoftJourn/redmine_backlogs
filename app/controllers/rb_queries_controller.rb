@@ -1,6 +1,4 @@
 class RbQueriesController < RbApplicationController
-  unloadable
-
   def show
     @query = __IssueQueryClass.new(:name => "_")
     @query.project = @project

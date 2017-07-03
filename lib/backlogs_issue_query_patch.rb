@@ -23,8 +23,6 @@ module Backlogs
 
       # Same as typing in the class
       base.class_eval do
-        unloadable # Send unloadable so it will not be unloaded in development
-
         alias_method_chain :available_filters, :backlogs_issue_type
         alias_method_chain :available_columns, :backlogs_issue_type
         alias_method_chain :sql_for_field, :backlogs_issue_type

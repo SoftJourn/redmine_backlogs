@@ -1,6 +1,4 @@
 class RbAllProjectsController < ApplicationController
-  unloadable
-
   before_filter :authorize_global
 
   def statistics

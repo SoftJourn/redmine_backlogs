@@ -2,8 +2,6 @@ require 'color'
 require 'nokogiri'
 
 module RbCommonHelper
-  unloadable
-
   include CustomFieldsHelper
   include RbPartialsHelper
 

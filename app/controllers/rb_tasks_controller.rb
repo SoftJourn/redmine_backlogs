@@ -1,8 +1,6 @@
 include RbCommonHelper
 
 class RbTasksController < RbApplicationController
-  unloadable
-
   def create
     @settings = Backlogs.settings
     @task = nil

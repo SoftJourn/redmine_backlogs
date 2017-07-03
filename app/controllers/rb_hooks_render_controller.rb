@@ -1,8 +1,6 @@
 include RbCommonHelper
 
 class RbHooksRenderController < RbApplicationController
-  unloadable
-
   def view_issues_sidebar
     locals = {
       :sprints => RbSprint.open_sprints(@project),

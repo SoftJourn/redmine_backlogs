@@ -2,8 +2,6 @@ include RbCommonHelper
 include ProjectsHelper
 
 class RbProjectSettingsController < RbApplicationController
-  unloadable
-
   def project_settings
     enabled = false
     enabled_scrum_stats = false

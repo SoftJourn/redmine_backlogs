@@ -7,8 +7,6 @@ module Backlogs
       base.send(:include, InstanceMethods)
 
       base.class_eval do
-        unloadable
-
         belongs_to :release, :class_name => 'RbRelease', :foreign_key => 'release_id'
 
         acts_as_list_with_gaps :default => (Backlogs.setting[:new_story_position] == 'bottom' ? 'bottom' : 'top')

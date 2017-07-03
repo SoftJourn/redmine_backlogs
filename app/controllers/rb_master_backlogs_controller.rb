@@ -1,8 +1,6 @@
 include RbCommonHelper
 
 class RbMasterBacklogsController < RbApplicationController
-  unloadable
-
   def show
     product_backlog_stories = RbStory.product_backlog(@project)
     @product_backlog = { :sprint => nil, :stories => product_backlog_stories }

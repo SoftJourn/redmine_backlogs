@@ -6,7 +6,6 @@ module Backlogs
     def self.included(base)
       base.send(:include, InstanceMethods)
       base.class_eval do
-        unloadable
         alias_method_chain :project_settings_tabs, :backlogs
       end
     end

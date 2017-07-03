@@ -1,6 +1,4 @@
 class RbStory < Issue
-  unloadable
-
   RELEASE_RELATIONSHIP = %w(auto initial continued added)
 
   private

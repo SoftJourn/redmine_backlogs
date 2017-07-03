@@ -1,6 +1,4 @@
 module RbServerVariablesHelper
-  unloadable
-
   # Calculates workflow transitions matrix.
   # Used to render server variables for javascript DnD handling
   #
