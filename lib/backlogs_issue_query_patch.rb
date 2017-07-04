@@ -23,7 +23,7 @@ module Backlogs
 
       # Same as typing in the class
       base.class_eval do
-        alias_method_chain :available_filters, :backlogs_issue_type
+        alias_method_chain :initialize_available_filters, :backlogs_issue_type
         alias_method_chain :available_columns, :backlogs_issue_type
         alias_method_chain :sql_for_field, :backlogs_issue_type
         alias_method_chain :joins_for_order_statement, :backlogs_issue_type
@@ -47,36 +47,32 @@ module Backlogs
         joins
       end
 
-      def available_filters_with_backlogs_issue_type
-        @available_filters = available_filters_without_backlogs_issue_type
-        return @available_filters if !show_backlogs_issue_items?(project)
+      def initialize_available_filters_with_backlogs_issue_type
+        initialize_available_filters_without_backlogs_issue_type
+        return unless show_backlogs_issue_items?(project)
 
-        if RbStory.trackers.length == 0 or RbTask.tracker.blank?
-          backlogs_filters = { }
-        else
-          backlogs_filters = {
-            # mother of *&@&^*@^*#.... order "20" is a magical constant in RM2.2 which means "I'm a custom field". What. The. Fuck.
-            "backlogs_issue_type" => {  :type => :list,
-                                        :name => l(:field_backlogs_issue_type),
-                                        :values => [[l(:backlogs_story), "story"], [l(:backlogs_task), "task"], [l(:backlogs_impediment), "impediment"], [l(:backlogs_any), "any"]],
-                                        :order => 21 },
-            "story_points" => { :type => :float,
-                                :name => l(:field_story_points),
-                                :order => 22 }
-                             }
+        if RbStory.trackers.any? && !RbTask.tracker.blank?
+          add_available_filter 'backlogs_issue_type',
+              :type => :list,
+              :name => l(:field_backlogs_issue_type),
+              :values => [[l(:backlogs_story), "story"], [l(:backlogs_task), "task"], [l(:backlogs_impediment), "impediment"], [l(:backlogs_any), "any"]],
+              :order => 21
+
+          add_available_filter 'story_points',
+              :type => :float,
+              :name => l(:field_story_points),
+              :order => 22
         end
 
         if project
-          backlogs_filters["release_id"] = {
-            :type => :list_optional,
-            :name => l(:field_release),
-            :values => RbRelease.where(project_id: project).order('name ASC').collect { |d| [d.name, d.id.to_s]},
-            :order => 21
-          }
+          add_available_filter 'story_points',
+              :type => :list_optional,
+              :name => l(:field_release),
+              :values => RbRelease.where(project_id: project).order('name ASC').collect { |d| [d.name, d.id.to_s]},
+              :order => 21
         end
-        @available_filters = @available_filters.merge(backlogs_filters)
       end
-      
+
       def available_columns_with_backlogs_issue_type
         @available_columns = available_columns_without_backlogs_issue_type
         return @available_columns if !show_backlogs_issue_items?(project) or @backlog_columns_included
